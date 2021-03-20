@@ -5,7 +5,7 @@ import pathlib
 app = Flask(__name__)
 Markdown(app)
 
-def list_pages_from_dir():
+def get_pages():
     # collects all pages from the pages directory into one list
 
     # define the path
@@ -21,7 +21,7 @@ def list_pages_from_dir():
 
 @app.route('/')
 def home():
-    pages = list_pages_from_dir()
+    pages = get_pages()
     return render_template("home.html", pages=pages)
 
 @app.route('/pages/')
