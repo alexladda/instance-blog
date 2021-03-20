@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <div id="navigation" class="">
+      <h2>instance-1.net</h2>
+      <ul>
+        {% for page in pages %}
+          <li><a href="pages/{{page}}">{{page}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="content" class="">
+      <h1>{{ self.title() }}</h1>
+      <p>{% block content %}{% endblock %}</p>
+    </div>
+  </body>
+</html>

@@ -1,19 +1,43 @@
 from flask import Flask, redirect, url_for, render_template
 from flaskext.markdown import Markdown
+import pathlib
+
 app = Flask(__name__)
 Markdown(app)
 
+def list_pages_from_dir():
+    # collects all pages from the pages directory into one list
+
+    # define the path
+    pages_directory = pathlib.Path('pages')
+    # define the pattern
+    pages_pattern = "*.md"
+
+    list=[]
+    for page in pages_directory.glob(pages_pattern):
+        list.append(page.stem)
+    return list
+
+
 @app.route('/')
 def home():
-    return render_template("home.html", pages=["page1", "page2", "page3"])
+    pages = list_pages_from_dir()
+    return render_template("home.html", pages=pages)
 
 @app.route('/pages/')
 def pages():
     return 'here are pages'
 
-@app.route('/pages/architecture')
-def architecture():
-    return render_template("architecture.md")
+@app.route('/pages/<page>')
+def architecture(page):
+    path = "pages/" + page + ".md"
+    file = pathlib.Path(path)
+    if file.exists() :
+        with open(path) as f:
+            page_markup = f.read()
+        return render_template("page.html", page_body=page_markup, page_title=page)
+    else :
+        return redirect(url_for("search", search_query=page))
 
 @app.route('/projects/')
 def projects():
@@ -34,4 +58,4 @@ def confidential():
     return redirect(url_for("search", search_query="confidential"))
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
