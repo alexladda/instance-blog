@@ -1,5 +1,7 @@
 from flask import Flask, redirect, url_for, render_template
+from flaskext.markdown import Markdown
 app = Flask(__name__)
+Markdown(app)
 
 @app.route('/')
 def home():
@@ -8,6 +10,10 @@ def home():
 @app.route('/pages/')
 def pages():
     return 'here are pages'
+
+@app.route('/pages/architecture')
+def architecture():
+    return render_template("architecture.md")
 
 @app.route('/projects/')
 def projects():

@@ -8,6 +8,12 @@
     <p>you are here:</p>
     <h1>instance-1.net</h1>
     <p>{{content}}</p>
+    {% filter markdown %}
+Your Markdown
+=============
+# h1 in markdown
+this will be some text in a paragraph
+    {% endfilter %}
     <ul>
       {% for page in pages %}
         <li>{{page}}</li>
