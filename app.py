@@ -7,13 +7,9 @@ Markdown(app)
 
 def get_pages():
     # collects all pages from the pages directory into one list
-
-    # define the path
-    pages_directory = pathlib.Path('pages')
-    # define the pattern
-    pages_pattern = "*.md"
-
-    list=[]
+    pages_directory = pathlib.Path('pages') # define the path
+    pages_pattern = "*.md"                  # define the pattern
+    list=[]                                 # initiate empty list variable
     for page in pages_directory.glob(pages_pattern):
         list.append(page.stem)
     return list
