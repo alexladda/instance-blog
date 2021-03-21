@@ -1,0 +1,44 @@
+/* Mobile First Media Queries */
+
+/* Base style */
+
+#nav {
+  display: none;
+}
+
+.hamburger svg {
+  fill: #9b4dca;
+}
+.hamburger svg:hover {
+  fill: #606c76;
+}
+
+
+
+
+
+/* Larger than mobile screen (640px) */
+@media (min-width: 40.0rem) {
+
+}
+
+/* Larger than tablet screen (1280px) */
+@media (min-width: 80.0rem) {
+
+  .hamburger {
+    display: none;
+  }
+
+  #nav {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: none;
+    font-size: 20em;
+  }
+
+/* Larger than desktop screen (1920px) */
+@media (min-width: 120.0rem) {
+
+}

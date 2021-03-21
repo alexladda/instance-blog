@@ -17,21 +17,18 @@ def get_pages():
 
 @app.route('/')
 def home():
-    pages = get_pages()
-    return render_template("home.html", pages=pages)
-
-@app.route('/pages/')
-def pages():
-    return 'here are pages'
+    pages = get_pages()                     # passing all pages to render navigation in base.html
+    return render_template("home.html", nav_pages=pages)
 
 @app.route('/pages/<page>')
-def architecture(page):
+def pages(page):
     path = "pages/" + page + ".md"
     file = pathlib.Path(path)
+    pages = get_pages()                     # passing all pages to render navigation in base.html
     if file.exists() :
         with open(path) as f:
             page_markup = f.read()
-        return render_template("page.html", page_body=page_markup, page_title=page)
+        return render_template("page.html", page_body=page_markup, page_title=page, nav_pages=pages)
     else :
         return redirect(url_for("search", search_query=page))
 

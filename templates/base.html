@@ -2,20 +2,50 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}{% endblock %}</title>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <!-- Milligram CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <!-- Pure CSS icons-->
+    <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <!-- Nav CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+
   </head>
   <body>
-    <div id="navigation" class="">
-      <h2>instance-1.net</h2>
-      <ul>
-        {% for page in pages %}
-          <li><a href="pages/{{page}}">{{page}}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="content" class="">
-      <h1>{{ self.title() }}</h1>
-      <p>{% block content %}{% endblock %}</p>
-    </div>
+    <header>
+        <h2 class="site-title"><a href="/">instance-1.net</a></h2>
+        <div onclick="hamburger()" class="hamburger">
+          <svg viewBox="0 0 100 80" width="40" height="40">
+            <rect width="80" height="10"></rect>
+            <rect y="30" width="80" height="10"></rect>
+            <rect y="60" width="80" height="10"></rect>
+          </svg>
+        </div>
+        <nav>
+          <ul id="nav">
+            {% for page in nav_pages %}
+              <li><a href="/pages/{{page}}">{{page}}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <script type="text/javascript">
+    function hamburger() {
+      var x = document.getElementById("nav");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    </script>
   </body>
 </html>
