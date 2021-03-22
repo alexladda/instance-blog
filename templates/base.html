@@ -2,6 +2,8 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <!-- set zoom correctly, especiall mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
     <!-- CSS Reset -->
@@ -16,18 +18,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
 
   </head>
-  <body>
+  <body onresize="set_nav()">
     <header>
         <h2 class="site-title"><a href="/">instance-1.net</a></h2>
-        <div onclick="hamburger()" class="hamburger">
+        <span onclick="hamburger()" class="hamburger">
           <svg viewBox="0 0 100 80" width="40" height="40">
             <rect width="80" height="10"></rect>
             <rect y="30" width="80" height="10"></rect>
             <rect y="60" width="80" height="10"></rect>
           </svg>
-        </div>
-        <nav>
-          <ul id="nav">
+        </span>
+        <nav id="main_nav">
+          <ul>
             {% for page in nav_pages %}
               <li><a href="/pages/{{page}}">{{page}}</a></li>
             {% endfor %}
@@ -39,10 +41,22 @@
     </main>
     <script type="text/javascript">
     function hamburger() {
-      var x = document.getElementById("nav");
-      if (x.style.display === "none") {
+      var x = document.getElementById("main_nav");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+    function set_nav() {
+      // mobile: #nav {display: none;}
+      // desktop: #nav {display: block;}
+      var w = window.outerWidth;
+      var x = document.getElementById("main_nav");
+      if (w > 800) {
         x.style.display = "block";
       } else {
+        // this also tends to conveniently hide the nav
         x.style.display = "none";
       }
     }

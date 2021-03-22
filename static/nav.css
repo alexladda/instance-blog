@@ -2,10 +2,9 @@
 
 /* Base style */
 
-#nav {
+#main_nav {
   display: none;
 }
-
 .hamburger svg {
   fill: #9b4dca;
 }
@@ -29,7 +28,7 @@
     display: none;
   }
 
-  #nav {
+  #main_nav {
     display: block;
   }
 
