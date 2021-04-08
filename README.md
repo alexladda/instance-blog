@@ -70,7 +70,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 Markdown==3.3.4
 MarkupSafe==1.1.1
-pkg-resources==0.0.0
 Werkzeug==1.0.1
 
 ### Step 4: systemd
