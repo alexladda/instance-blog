@@ -5,11 +5,9 @@
     <!-- set zoom correctly, especiall mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS Reset -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
     <!-- Milligram CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='milligram.css') }}">
-    <!-- Pure CSS icons-->
-    <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <!-- Nav CSS -->
