@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <!-- Nav CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+    <style>
+      {% block css %}{% endblock %}
+    </style>
 
   </head>
   <body onresize="set_nav()">
@@ -24,13 +27,23 @@
             <rect y="60" width="80" height="10"></rect>
           </svg>
         </span>
-        <nav id="main_nav">
-          <ul>
-            {% for page in nav_pages %}
-              <li><a href="/pages/{{page}}">{{page}}</a></li>
-            {% endfor %}
-          </ul>
-        </nav>
+        <div id="main_nav">
+          <nav id="pages_nav" aria-label="about">
+            <ul>
+              {% for page in nav_pages %}
+                <li><a href="/about/{{  page  }}">{{  page  }}</a></li>
+              {% endfor %}
+            </ul>
+          </nav>
+          <nav id="projects_nav" aria-label="projects">
+            <h4><a href="#"><strong>projects</strong></a></h4>
+            <ul>
+              {% for project in nav_projects %}
+                <li><a href="/projects/{{  project  }}">{{  project  }}</a></li>
+              {% endfor %}
+            </ul>
+          </nav>
+        </div>
     </header>
     <main>
       {% block content %}{% endblock %}

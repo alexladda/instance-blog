@@ -10,11 +10,11 @@ a very simple blog based on flask. Goal is to serve the page within the first TC
 
 ### pages
 
-The Blog will render all Markdown files in the pages subfolder.
+Create a folder named pages. The Blog will render all Markdown files in the pages subfolder.
 
 ### projects
 
-todo
+Create a folder named projects. The Blog will render all Markdown files in the pages subfolder.
 
 ### dashboards
 
@@ -60,17 +60,6 @@ Create and activate virtual environment
 Install instance-blog dependencies:
 
 `python -m pip install -r requirements.txt`
-
-this will be installed:
-click==7.1.2
-Flask==1.1.2
-Flask-Markdown==0.3
-gunicorn==20.1.0
-itsdangerous==1.1.0
-Jinja2==2.11.3
-Markdown==3.3.4
-MarkupSafe==1.1.1
-Werkzeug==1.0.1
 
 ### Step 4: systemd
 

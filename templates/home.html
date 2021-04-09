@@ -1,3 +1,17 @@
 {% extends "base.html" %}
+{% block css %}{{ css }}{% endblock %}
 {% block title %}Home{% endblock %}
-{% block content %}Welcome, enjoy and don't break anything.{% endblock %}
+{% block content %}
+{% filter markdown %}
+# Welcome, enjoy and don't break anything.
+
+*Glad you found this. If you don't know what you're looking for how about this for a start:*
+
+**[Architecture](/about/architecture)** - A high-level overview what this whole project is about.
+
+**[Stack](/about/stack)** - Read in more detail about the technologies and techniques which are used.
+
+**[Projects](/projects)** - Learn about the Data projects.
+
+{% endfilter %}
+{% endblock %}
