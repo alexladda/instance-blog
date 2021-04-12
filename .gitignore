@@ -1,5 +1,22 @@
+# To enable a seperate version control for pages and projects
+# those are symlinked to a different folder which is version
+# controlled in a different repository
+
+pages/
+projects/
+
+# The same for instance specific local_settings, version
+# controlled in private repository to protect sensitive login data
+
+config/
+
+
 .DS_Store
 *.sock
+
+
+# Beyond this point it's
+# https://github.com/github/gitignore/blob/master/Python.gitignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
