@@ -31,8 +31,12 @@ header div#main_nav {
   flex-basis: 100%;
 }
 
+img.round {
+  padding-right: 20px;
+  border-radius: 50%;
+}
 
-
+/* embedding Tableau */
 iframe {
   border: none;
 }

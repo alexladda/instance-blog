@@ -31,12 +31,12 @@
           <nav id="pages_nav" aria-label="about">
             <ul>
               {% for page in nav_pages %}
-                <li><a href="/about/{{  page  }}">{{  page  }}</a></li>
+                <li><a href="/{{  page  }}">{{  page  }}</a></li>
               {% endfor %}
             </ul>
           </nav>
           <nav id="projects_nav" aria-label="projects">
-            <h4><a href="#"><strong>projects</strong></a></h4>
+            <h4><a href="/projects/"><strong>projects</strong></a></h4>
             <ul>
               {% for project in nav_projects %}
                 <li><a href="/projects/{{  project  }}">{{  project  }}</a></li>

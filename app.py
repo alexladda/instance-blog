@@ -3,9 +3,13 @@ from flaskext.markdown import Markdown
 # from flask_minify import minify
 import pathlib
 
+
 app = Flask(__name__)
-Markdown(app, safe_mode=True)
+md = Markdown(app, safe_mode=True)
 # minify(app=app, html=True, js=True, cssless=True)
+
+# TODO: pass navigation as decorator (see code repetitions)
+# TODO: footer for all pages
 
 
 def get_content(category):
@@ -21,8 +25,12 @@ def get_content(category):
     for content in content_directory.glob(content_pattern):
         content_list.append(content.stem)
     content_list.sort()
+    # removing __archive.md entry
+    content_list.pop(0)
     return content_list
 
+
+# TODO: inline CSS and Javascript
 
 # def get_css():
 #     '''
@@ -47,8 +55,8 @@ def home():
                            nav_projects=projects)
 
 
-@ app.route('/about/<page>')
-def pages(page):
+@ app.route('/<page>')
+def page(page):
     path = "pages/" + page + ".md"
     file = pathlib.Path(path)
     # passing all pages and projects to render navigation in base.html
@@ -66,8 +74,22 @@ def pages(page):
         return redirect(url_for("search", search_query=page))
 
 
+@ app.route('/projects/')
+def projects():
+    # passing all pages and projects to render navigation in base.html
+    # TODO: Archive page to aggregate all Projects
+    pages = get_content("pages")
+    projects = get_content("projects")
+    markup = "TODO: Archive page to aggregate all Projects"
+    return render_template("page.html",
+                           page_body=markup,
+                           page_title=project,
+                           nav_pages=pages,
+                           nav_projects=projects)
+
+
 @ app.route('/projects/<project>')
-def projects(project):
+def project(project):
     path = "projects/" + project + ".md"
     file = pathlib.Path(path)
     # passing all pages and projects to render navigation in base.html
@@ -85,20 +107,17 @@ def projects(project):
         return redirect(url_for("search", search_query=page))
 
 
-@ app.route('/about/')
-def about():
-    return 'about'
-
-
 @ app.route('/<search_query>')
 def search(search_query):
+    # FEATURE: add site search
+    # TODO: everything
     return render_template("search.html", content=search_query)
 
 
 @ app.route("/confidential")
 def confidential():
     # FEATURE: add confindential content
-    # TODO: this ends in a redirect loop
+    # TODO: everything
     return redirect(url_for("search", search_query="confidential"))
 
 

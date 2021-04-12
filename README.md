@@ -1,8 +1,9 @@
 # Instances Blog
 
-a very simple blog based on flask. Goal is to serve the page within the first TCP roundtrip (around 14kB).
+This is a very simple blog based on flask. Goal is to serve the page within the first TCP roundtrip (around 14kB).
 
 - using absolutely minimal css framework
+- inlining most of CSS and Javascript
 - using system fonts stack
 - reduce http requests where ever possible
 
@@ -10,15 +11,19 @@ a very simple blog based on flask. Goal is to serve the page within the first TC
 
 ### pages
 
-Create a folder named pages. The Blog will render all Markdown files in the pages subfolder.
+The Blog will render all Markdown files in the "pages" subfolder like this: `<URL>/<page>`.
+
+Rename the folder "pages-sample" to "pages". (Or symlink to a separately version controlled repository for the content.)
 
 ### projects
 
-Create a folder named projects. The Blog will render all Markdown files in the pages subfolder.
+The Blog will render all Markdown files in the "projects" subfolder like this: `<URL>/projects/<project>`.
+
+Rename the folder "projects-sample" to "projects". (Or symlink to a separately version controlled repository for the content.)
 
 ### dashboards
 
-todo
+todo: `<URL>/dashboards/<dashboard>` - statistics for the current instance.
 
 ## Installation
 
@@ -60,6 +65,8 @@ Create and activate virtual environment
 Install instance-blog dependencies:
 
 `python -m pip install -r requirements.txt`
+
+(see `cat requirements.txt` for complete list of python dependencies)
 
 ### Step 4: systemd
 
