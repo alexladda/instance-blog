@@ -78,7 +78,7 @@ doublecheck the paths and settings:
 
 symlink said file from systemd folder:
 
-`sudo ln -s app.service /etc/systemd/system/ ./app.service`
+`sudo ln -s /var/www/instance-blog/app.service /etc/systemd/system/app.service`
 
 `sudo systemctl start app`
 
@@ -88,11 +88,11 @@ symlink said file from systemd folder:
 
 ### Step 5: configure nginx
 
-`vim /etc/nginx/sites-available/instance-<n>.net`
+`vim /etc/nginx/sites-available/instance-blog`
 
     server {
 
-           server_name instance-1.net;
+           server_name <your-url>;
 
            root /var/www/instance-blog;
            index index.html;
@@ -104,7 +104,7 @@ symlink said file from systemd folder:
            }
     }
 
-`ln -s /etc/nginx/sites-available/instance-1.net /etc/nginx/sites-enabled/instance-1.net`
+`ln -s /etc/nginx/sites-available/instance-blog /etc/nginx/sites-enabled/instance-blog`
 
 test configuration:
 
