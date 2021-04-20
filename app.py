@@ -2,7 +2,8 @@ from flask import Flask, redirect, url_for, render_template
 from flaskext.markdown import Markdown
 # from flask_minify import minify
 import pathlib
-
+import os
+from flask import send_from_directory
 
 app = Flask(__name__)
 md = Markdown(app, safe_mode=True)
@@ -30,32 +31,40 @@ def get_content(category):
     return content_list
 
 
-# TODO: inline CSS and Javascript
+# inline CSS and Javascript
+def get_css():
+    '''
+    collects all styles from the static directory into one string
+    '''
+    styles = ["normalize.css", "milligram.css", "main.css", "nav.css"]
+    css = ""
+    for style in styles:
+        path = "static/" + style
+        with open(path) as f:
+            css = css + f.read()
+    return css
 
-# def get_css():
-#     '''
-#     collects all styles from the static directory into one string
-#     '''
-#     styles = ["main.css", "nav.css", "normalize.css"]
-#     css = ""
-#     for style in styles:
-#         path = "static/" + style
-#         with open(path) as f:
-#             css = css + f.read()
-#     return css
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico',
+                               mimetype='image/vnd.microsoft.icon')
 
 
-@ app.route('/')
+@app.route('/')
 def home():
     # passing all pages to render navigation in base.html
     pages = get_content("pages")
     projects = get_content("projects")
+    css = get_css()
     return render_template("home.html",
                            nav_pages=pages,
-                           nav_projects=projects)
+                           nav_projects=projects,
+                           css=css)
 
 
-@ app.route('/<page>')
+@app.route('/<page>')
 def page(page):
     path = "pages/" + page + ".md"
     file = pathlib.Path(path)
@@ -74,7 +83,7 @@ def page(page):
         return redirect(url_for("search", search_query=page))
 
 
-@ app.route('/projects/')
+@app.route('/projects/')
 def projects():
     # passing all pages and projects to render navigation in base.html
     # TODO: Archive page to aggregate all Projects
@@ -88,7 +97,7 @@ def projects():
                            nav_projects=projects)
 
 
-@ app.route('/projects/<project>')
+@app.route('/projects/<project>')
 def project(project):
     path = "projects/" + project + ".md"
     file = pathlib.Path(path)
@@ -107,14 +116,14 @@ def project(project):
         return redirect(url_for("search", search_query=page))
 
 
-@ app.route('/<search_query>')
+@app.route('/<search_query>')
 def search(search_query):
     # FEATURE: add site search
     # TODO: everything
     return render_template("search.html", content=search_query)
 
 
-@ app.route("/confidential")
+@app.route("/confidential")
 def confidential():
     # FEATURE: add confindential content
     # TODO: everything
