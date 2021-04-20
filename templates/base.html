@@ -13,7 +13,7 @@
     <!-- Nav CSS >
     <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}"-->
     <style>
-      {{ css | safe }}
+      {{ get_css()|safe }}
     </style>
 
   </head>

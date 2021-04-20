@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, abort
 from flaskext.markdown import Markdown
 # from flask_minify import minify
 import pathlib
@@ -32,32 +32,48 @@ def get_content(category):
 
 
 # inline CSS and Javascript
-def get_css():
-    '''
-    collects all styles from the static directory into one string
-    '''
-    styles = ["normalize.css", "milligram.css", "main.css", "nav.css"]
-    css = ""
-    for style in styles:
-        path = "static/" + style
-        with open(path) as f:
-            css = css + f.read()
-    return css
+@app.context_processor
+def utility_processor():
+    def get_css():
+        '''
+        collects all styles from the static directory into one string
+        '''
+        styles = ["normalize.css", "milligram.css", "main.css", "nav.css"]
+        css = ""
+        for style in styles:
+            path = "static/" + style
+            with open(path) as f:
+                css = css + f.read()
+        return css
+    return dict(get_css=get_css)
 
 
 def get_elements():
     """
-    gets reocurring elements: list of pages and projects (for navigation), css,
-    js and returns them in a dictionary.
+    gets reocurring elements: list of pages and projects (for navigation)
+    and returns them in a dictionary.
     """
     # TODO: footer
     pages = get_content("pages")
     projects = get_content("projects")
-    css = get_css()
     elements = {'pages': pages,
-                'projects': projects,
-                'css': css}
+                'projects': projects}
     return elements
+
+
+def get_markup(folder, file):
+    """
+    fetches the whole contents of the .md file and returns as a string
+    """
+    path = folder + file + ".md"
+    file = pathlib.Path(path)
+
+    if file.exists():
+        with open(path) as f:
+            markup = f.read()
+            return markup
+    else:
+        abort(404)
 
 
 @app.route('/favicon.ico')
@@ -73,8 +89,7 @@ def home():
     elements = get_elements()
     return render_template("home.html",
                            nav_pages=elements['pages'],
-                           nav_projects=elements['projects'],
-                           css=elements['css'])
+                           nav_projects=elements['projects'])
 
 
 @app.route('/<page>')
@@ -90,8 +105,7 @@ def page(page):
                                page_body=markup,
                                page_title=page,
                                nav_pages=elements['pages'],
-                               nav_projects=elements['projects'],
-                               css=elements['css'])
+                               nav_projects=elements['projects'])
     else:
         return redirect(url_for("search", search_query=page))
 
@@ -101,13 +115,13 @@ def projects():
     # passing all pages and projects to render navigation in base.html
     # TODO: Archive page to aggregate all Projects
     elements = get_elements()
-    markup = "TODO: Archive page to aggregate all Projects"
-    return render_template("page.html",
+    markup = get_markup('projects', '__archive')
+    return render_template("search.html",
                            page_body=markup,
-                           page_title=project,
+                           list=elements['projects'],
+                           page_title='projects',
                            nav_pages=elements['pages'],
-                           nav_projects=elements['projects'],
-                           css=elements['css'])
+                           nav_projects=elements['projects'])
 
 
 @app.route('/projects/<project>')
@@ -122,17 +136,23 @@ def project(project):
                                page_body=markup,
                                page_title=project,
                                nav_pages=elements['pages'],
-                               nav_projects=elements['projects'],
-                               css=elements['css'])
+                               nav_projects=elements['projects'])
     else:
         return redirect(url_for("search", search_query=page))
 
 
-@app.route('/<search_query>')
+@app.route('/search/<search_query>')
 def search(search_query):
     # FEATURE: add site search
     # TODO: everything
-    return render_template("search.html", content=search_query)
+    elements = get_elements()
+    content = 'Looks like you were looking for <em>{}</em>.'.format(search_query)
+    return render_template("search.html",
+                           content=content,
+                           list=['dummy', 'dummy', 'dummy'],
+                           page_title='site search',
+                           nav_pages=elements['pages'],
+                           nav_projects=elements['projects'])
 
 
 @app.route("/confidential")
@@ -140,6 +160,16 @@ def confidential():
     # FEATURE: add confindential content
     # TODO: everything
     return redirect(url_for("search", search_query="confidential"))
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    elements = get_elements()
+    return render_template('404.html',
+                           page_title='404',
+                           nav_pages=elements['pages'],
+                           nav_projects=elements['projects']), 404
 
 
 if __name__ == "__main__":

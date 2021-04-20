@@ -1,3 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Search{% endblock %}
-{% block content %}Looks like you were looking for <em>{{content}}</em>{% endblock %}
+{% block content %}
+{% filter markdown %}
+{{ page_body|safe }}
+{% endfilter %}
+<ul>
+{% for element in list %}
+  <li><a href="/projects/{{  element  }}">{{  element  }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
