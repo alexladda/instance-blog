@@ -4,14 +4,9 @@
     <meta charset="utf-8">
     <!-- set zoom correctly, especiall mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS Reset
-    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}"-->
-    <!-- Milligram CSS >
-    <link rel="stylesheet" href="{{ url_for('static', filename='milligram.css') }}"-->
-    <!-- Main CSS >
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"-->
-    <!-- Nav CSS >
-    <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}"-->
+    <meta name="description" content="Watch me build a Data Science Pipeline for Analysis, Fun and Education.">
+    {% block title %}{% endblock %}
+
     <style>
       {{ get_css()|safe }}
     </style>
