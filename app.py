@@ -74,7 +74,7 @@ def home():
     return render_template("home.html",
                            nav_pages=elements['pages'],
                            nav_projects=elements['projects'],
-                           css=css)
+                           css=elements['css'])
 
 
 @app.route('/<page>')
@@ -91,7 +91,7 @@ def page(page):
                                page_title=page,
                                nav_pages=elements['pages'],
                                nav_projects=elements['projects'],
-                               css=css)
+                               css=elements['css'])
     else:
         return redirect(url_for("search", search_query=page))
 
@@ -107,7 +107,7 @@ def projects():
                            page_title=project,
                            nav_pages=elements['pages'],
                            nav_projects=elements['projects'],
-                           css=css)
+                           css=elements['css'])
 
 
 @app.route('/projects/<project>')
@@ -123,7 +123,7 @@ def project(project):
                                page_title=project,
                                nav_pages=elements['pages'],
                                nav_projects=elements['projects'],
-                               css=css)
+                               css=elements['css'])
     else:
         return redirect(url_for("search", search_query=page))
 
