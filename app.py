@@ -45,6 +45,21 @@ def get_css():
     return css
 
 
+def get_elements():
+    """
+    gets reocurring elements: list of pages and projects (for navigation), css,
+    js and returns them in a dictionary.
+    """
+    # TODO: footer
+    pages = get_content("pages")
+    projects = get_content("projects")
+    css = get_css()
+    elements = {'pages': pages,
+                'projects': projects,
+                'css': css}
+    return elements
+
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -55,12 +70,10 @@ def favicon():
 @app.route('/')
 def home():
     # passing all pages to render navigation in base.html
-    pages = get_content("pages")
-    projects = get_content("projects")
-    css = get_css()
+    elements = get_elements()
     return render_template("home.html",
-                           nav_pages=pages,
-                           nav_projects=projects,
+                           nav_pages=elements['pages'],
+                           nav_projects=elements['projects'],
                            css=css)
 
 
@@ -69,16 +82,16 @@ def page(page):
     path = "pages/" + page + ".md"
     file = pathlib.Path(path)
     # passing all pages and projects to render navigation in base.html
-    pages = get_content("pages")
-    projects = get_content("projects")
+    elements = get_elements()
     if file.exists():
         with open(path) as f:
             markup = f.read()
         return render_template("page.html",
                                page_body=markup,
                                page_title=page,
-                               nav_pages=pages,
-                               nav_projects=projects)
+                               nav_pages=elements['pages'],
+                               nav_projects=elements['projects'],
+                               css=css)
     else:
         return redirect(url_for("search", search_query=page))
 
@@ -87,14 +100,14 @@ def page(page):
 def projects():
     # passing all pages and projects to render navigation in base.html
     # TODO: Archive page to aggregate all Projects
-    pages = get_content("pages")
-    projects = get_content("projects")
+    elements = get_elements()
     markup = "TODO: Archive page to aggregate all Projects"
     return render_template("page.html",
                            page_body=markup,
                            page_title=project,
-                           nav_pages=pages,
-                           nav_projects=projects)
+                           nav_pages=elements['pages'],
+                           nav_projects=elements['projects'],
+                           css=css)
 
 
 @app.route('/projects/<project>')
@@ -102,16 +115,15 @@ def project(project):
     path = "projects/" + project + ".md"
     file = pathlib.Path(path)
     # passing all pages and projects to render navigation in base.html
-    pages = get_content("pages")
-    projects = get_content("projects")
     if file.exists():
         with open(path) as f:
             markup = f.read()
         return render_template("page.html",
                                page_body=markup,
                                page_title=project,
-                               nav_pages=pages,
-                               nav_projects=projects)
+                               nav_pages=elements['pages'],
+                               nav_projects=elements['projects'],
+                               css=css)
     else:
         return redirect(url_for("search", search_query=page))
 
