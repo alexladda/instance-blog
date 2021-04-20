@@ -114,7 +114,7 @@ def projects():
 def project(project):
     path = "projects/" + project + ".md"
     file = pathlib.Path(path)
-    # passing all pages and projects to render navigation in base.html
+    elements = get_elements()
     if file.exists():
         with open(path) as f:
             markup = f.read()
