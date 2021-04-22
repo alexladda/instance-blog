@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>helloworld</title>
+  </head>
+  <body>
+    <h1>hello plot</h1>
+
+      <h2>svg - inline (b64)</h2>
+      {{ svg64 | safe }}
+      <h2>svg - inline (html)</h2>
+      <p>todo ...</p>
+      {{ svg | safe }}
+      <h2>png - inline</h2>
+      {{ png | safe }}
+      <h2>svg - src http</h2>
+      <img src="/plot.svg">
+      <h2>png - src http</h2>
+      <img src="/plot.png">
+
+  </body>
+</html>
