@@ -1,15 +1,20 @@
-from flask import Flask, redirect, url_for, render_template, abort
+from flask import Flask, redirect, url_for, render_template, abort, Response
 from flaskext.markdown import Markdown
 # from flask_minify import minify
 import pathlib
 import os
 from flask import send_from_directory
+from matplotlib.figure import Figure
+import random
+
+
+import include.weather_station as ws
 
 app = Flask(__name__)
 md = Markdown(app, safe_mode=True)
 # minify(app=app, html=True, js=True, cssless=True)
 
-# TODO: pass navigation as decorator (see code repetitions)
+# TODO: pass navigation differently (see code repetitions)
 # TODO: footer for all pages
 
 
@@ -26,14 +31,14 @@ def get_content(category):
     for content in content_directory.glob(content_pattern):
         content_list.append(content.stem)
     content_list.sort()
-    # removing __archive.md entry
+    # removing entry for __archive.md
     content_list.pop(0)
     return content_list
 
 
-# inline CSS and Javascript
 @app.context_processor
 def utility_processor():
+    # inline CSS and Javascript
     def get_css():
         '''
         collects all styles from the static directory into one string
@@ -45,7 +50,16 @@ def utility_processor():
             with open(path) as f:
                 css = css + f.read()
         return css
-    return dict(get_css=get_css)
+
+    def test_plot():
+        fig = Figure()
+        axis = fig.add_subplot(1, 1, 1)
+        xs = range(100)
+        ys = [random.randint(1, 50) for x in xs]
+        axis.plot(xs, ys)
+        return fig.svg()
+
+    return dict(get_css=get_css, test_plot=test_plot)
 
 
 def get_elements():
@@ -74,6 +88,12 @@ def get_markup(folder, file):
             return markup
     else:
         abort(404)
+
+
+@app.route('/plots/<plot>.svg')
+def plot_svg(plot):
+    svg = ws.plot_temp(ws.query_db())
+    return Response(svg, mimetype='image/svg+xml')
 
 
 @app.route('/favicon.ico')
