@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <!-- comment -->
     <meta charset="utf-8">
-    <!-- set zoom correctly, especiall mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Watch me build a Data Science Pipeline for Analysis, Fun and Education.">
     <title>instance-1.net | {% block title %}{% endblock %}</title>
-
     <style>
       {{ get_css()|safe }}
     </style>
-
   </head>
   <body onresize="set_nav()">
     <header>
@@ -44,26 +42,7 @@
       {% block content %}{% endblock %}
     </main>
     <script type="text/javascript">
-    function hamburger() {
-      var x = document.getElementById("main_nav");
-      if (x.style.display === "block") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "block";
-      }
-    }
-    function set_nav() {
-      // mobile: #nav {display: none;}
-      // desktop: #nav {display: block;}
-      var w = window.outerWidth;
-      var x = document.getElementById("main_nav");
-      if (w > 800) {
-        x.style.display = "block";
-      } else {
-        // this also tends to conveniently hide the nav
-        x.style.display = "none";
-      }
-    }
+      {{ get_js()|safe }}
     </script>
   </body>
 </html>
