@@ -36,6 +36,7 @@
     display: none;
     font-size: 20em;
   }
+}
 
 /* Larger than desktop screen (1920px) */
 @media (min-width: 120.0rem) {
