@@ -1,9 +1,47 @@
+/* representational Styles */
+
+footer li {
+  display: inline-block;
+}
+
+footer ul {
+  margin: 0;
+  padding: 0;
+}
+
+footer li {
+  margin: 0;
+  padding: 0;
+  padding-right: 20px;
+}
+
+
 /* Styles for main layout grid */
 /* Mobile First Media Queries */
 
+
 /* Base style */
 
-header, main {
+html, body {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+}
+main {
+  flex: 1;
+}
+footer {
+}
+
+
+header, main, footer {
   padding: 20px;
 }
 
@@ -16,6 +54,7 @@ nav li {
   list-style: none;
 }
 
+/* sub flex for mobile nav */
 header {
   display: flex;
   flex-wrap: wrap;
@@ -31,6 +70,7 @@ header div#main_nav {
   flex-basis: 100%;
 }
 
+/* round image */
 img.round {
   padding-right: 20px;
   border-radius: 50%;
@@ -51,6 +91,8 @@ iframe {
     max-width: 100%;
 }
 
+/** Media Queries **/
+
 /* Larger than mobile screen (640px) */
 @media (min-width: 40.0rem) {
 }
@@ -67,8 +109,15 @@ iframe {
   }
 
   body {
+    /* only the first two elements in body */
+    /* <header> and <main> */
+    min-height: 100vh;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
   }
+
   header {
     /* fixed width*/
     width: 15em       !important;
@@ -76,13 +125,20 @@ iframe {
   }
 
   main {
+    flex: 1;
     width: 100%;
   }
 
   main p {
     max-width: 45em   !important;
   }
+
+  footer {
+    flex-basis: 100%;
+  }
 }
+
+
 
 /* Larger than desktop screen (1920px) */
 @media (min-width: 120.0rem) {
