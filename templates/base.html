@@ -23,7 +23,7 @@
         <div id="main_nav">
           <nav id="pages_nav" aria-label="about">
             <ul>
-              {% for page in nav_pages %}
+              {% for page in get_nav('pages') %}
                 <li><a href="/{{  page  }}">{{  page  }}</a></li>
               {% endfor %}
             </ul>
@@ -31,7 +31,7 @@
           <nav id="projects_nav" aria-label="projects">
             <h4><a href="/projects/"><strong>projects</strong></a></h4>
             <ul>
-              {% for project in nav_projects %}
+              {% for project in get_nav('projects') %}
                 <li><a href="/projects/{{  project  }}">{{  project  }}</a></li>
               {% endfor %}
             </ul>
@@ -41,6 +41,13 @@
     <main>
       {% block content %}{% endblock %}
     </main>
+    <footer>
+      <ul>
+        <li>©2021</li>
+        <li><a href="mailto: alex.ladda@gmail.com">alex.ladda@gmail.com</a></a></li>
+        <li><a href="https://github.com/alexladda">github.com/alexladda</a></li>
+    </ul>
+    </footer>
     <script type="text/javascript">
       {{ get_js()|safe }}
     </script>

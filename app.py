@@ -68,23 +68,18 @@ def utility_processor():
         js = jsmin(js)
         return js
 
-    def test_plot():
-        fig = Figure()
-        axis = fig.add_subplot(1, 1, 1)
-        xs = range(100)
-        ys = [random.randint(1, 50) for x in xs]
-        axis.plot(xs, ys)
-        return fig.svg()
+    def get_nav(folder):
+        nav = get_content(folder)
+        return nav
 
-    def pages_nav():
-        pass
-
-    def projects_nav():
+    def get_footer():
+        # TODO
         pass
 
     return dict(get_css=get_css,
                 get_js=get_js,
-                test_plot=test_plot)
+                get_nav=get_nav,
+                get_footer=get_footer)
 
 
 def get_elements():
@@ -137,11 +132,7 @@ def robots():
 
 @app.route('/')
 def home():
-    # passing all pages to render navigation in base.html
-    elements = get_elements()
-    rendered_html = render_template("home.html",
-                                    nav_pages=elements['pages'],
-                                    nav_projects=elements['projects'])
+    rendered_html = render_template("home.html")
     return html_minify(rendered_html)
 
 
@@ -149,47 +140,35 @@ def home():
 def page(page):
     path = "pages/" + page + ".md"
     file = pathlib.Path(path)
-    # passing all pages and projects to render navigation in base.html
-    elements = get_elements()
     if file.exists():
         with open(path) as f:
             markup = f.read()
         return render_template("page.html",
                                page_body=markup,
-                               page_title=page,
-                               nav_pages=elements['pages'],
-                               nav_projects=elements['projects'])
+                               page_title=page)
     else:
         abort(404)
 
 
 @app.route('/projects/')
 def projects_archive():
-    # passing all pages and projects to render navigation in base.html
     # TODO: Archive page to aggregate all Projects
-    elements = get_elements()
     markup = get_markup('projects/', '__archive')
     return render_template("page.html",
                            page_body=markup,
-                           list=elements['projects'],
-                           page_title='projects',
-                           nav_pages=elements['pages'],
-                           nav_projects=elements['projects'])
+                           page_title='projects')
 
 
 @app.route('/projects/<project>/')
 def projects(project):
     path = "projects/" + project + ".md"
     file = pathlib.Path(path)
-    elements = get_elements()
     if file.exists():
         with open(path) as f:
             markup = f.read()
         return render_template("page.html",
                                page_body=markup,
-                               page_title=project,
-                               nav_pages=elements['pages'],
-                               nav_projects=elements['projects'])
+                               page_title=project)
     else:
         abort(404)
 
