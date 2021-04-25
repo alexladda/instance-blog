@@ -46,7 +46,11 @@ def utility_processor():
         """
         collects all styles from the static directory into one string
         """
-        styles = ["normalize.css", "milligram.css", "main.css", "nav.css"]
+        styles = ["normalize.css",
+                  "milligram.css",
+                  "main.css",
+                  "nav.css",
+                  "socialicons.css"]
         css = ""
         for file in styles:
             path = "static/" + file

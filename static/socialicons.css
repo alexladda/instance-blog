@@ -1,0 +1,52 @@
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.ir {
+  display: block;
+  overflow: visible;
+  padding: 0 0 100%;
+  position: relative;
+  height: 0;
+  width: 100%;
+}
+
+.ir > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.soc {
+  display: block;
+  font-size: 0;
+  list-style: none;
+  margin: 0 auto;
+  padding-bottom: 25px;
+  max-width: 100%;
+}
+.soc li {
+  display: inline-block;
+  margin: 1.2rem;
+}
+.soc a, .soc svg {
+  display: block;
+}
+.soc a {
+  height: 8rem;
+  width: 8rem;
+}
+.icon:hover {
+  border-radius: 100%;
+  fill: #fff;
+  transform: scale(1.1);
+  transition: background-color 0.5s, transform 0.5s ease-out;
+}
+.icon {
+  fill: #9b4dca;
+}
+.icon:hover {
+  background: #9b4dca;
+}
