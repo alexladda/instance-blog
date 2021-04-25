@@ -18,6 +18,26 @@ footer li {
 }
 
 
+/* round image */
+img.round {
+  border-radius: 50%;
+}
+
+/* embedding Tableau */
+iframe {
+  border: none;
+}
+
+.h_iframe iframe {
+    width: 100%;
+    height:100%;
+}
+.h_iframe {
+    height: 500px;
+    width: 100%;
+    max-width: 100%;
+}
+
 /* Styles for main layout grid */
 /* Mobile First Media Queries */
 
@@ -72,26 +92,6 @@ header div#main_nav {
   flex-basis: 100%;
 }
 
-/* round image */
-img.round {
-  padding-right: 20px;
-  border-radius: 50%;
-}
-
-/* embedding Tableau */
-iframe {
-  border: none;
-}
-
-.h_iframe iframe {
-    width: 100%;
-    height:100%;
-}
-.h_iframe {
-    height: 500px;
-    width: 100%;
-    max-width: 100%;
-}
 
 /** Media Queries **/
 
