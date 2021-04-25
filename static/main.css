@@ -17,10 +17,17 @@ footer li {
   padding-right: 20px;
 }
 
-
+/* utility classes */
 /* round image */
 img.round {
   border-radius: 50%;
+}
+
+/* OS X Style drop shadow */
+.has_shadow {
+  box-shadow: 5px 10px 31px 5px rgba(0,0,0,0.48);
+  -webkit-box-shadow: 5px 10px 31px 5px rgba(0,0,0,0.48);
+  -moz-box-shadow: 5px 10px 31px 5px rgba(0,0,0,0.48);
 }
 
 /* embedding Tableau */
