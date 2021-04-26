@@ -63,7 +63,7 @@ def utility_processor():
         """
         collects all scripts from the static directory into one string
         """
-        scripts = ["nav.js"]
+        scripts = ["nav.js", "shynet.js"]
         js = ""
         for file in scripts:
             path = "static/" + file
